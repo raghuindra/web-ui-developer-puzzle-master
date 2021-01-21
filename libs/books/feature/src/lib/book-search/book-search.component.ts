@@ -20,19 +20,11 @@ import { Meta } from '@angular/platform-browser';
 export class BookSearchComponent implements OnInit {
   books: ReadingListBook[];
 
-  // searchForm = this.fb.group({
-  //   term: ''
-  // });
-
   constructor(
     private readonly store: Store,
     private metaTagService: Meta,
     private cd: ChangeDetectorRef
   ) {}
-
-  // get searchTerm(): string {
-  //   return this.searchForm.value.term;
-  // }
 
   ngOnInit(): void {
     this.store.select(getAllBooks).subscribe(books => {
@@ -48,12 +40,6 @@ export class BookSearchComponent implements OnInit {
       { charset: 'UTF-8' }
     ]);
   }
-
-  // formatDate(date: void | string) {
-  //   return date
-  //     ? new Intl.DateTimeFormat('en-US').format(new Date(date))
-  //     : undefined;
-  // }
 
   onAddedBookToReadingList(book: Book) {
     this.store.dispatch(addToReadingList({ book }));
