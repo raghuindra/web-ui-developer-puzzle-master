@@ -1,4 +1,4 @@
-<form [formGroup]="searchForm" (submit)="searchBooks()">
+<!-- <form [formGroup]="searchForm" (submit)="searchBooks()">
   <mat-form-field floatLabel="never">
     <input
       autoFocus
@@ -7,13 +7,14 @@
       placeholder="Search for books to add to your reading list"
       formControlName="term"
     />
-    <button mat-icon-button matSuffix>
-      <mat-icon>search</mat-icon>
+    <button mat-icon-button matSuffix title="Search" aria-label="Search">
+      <mat-icon aria-label="Search" >search</mat-icon>
     </button>
   </mat-form-field>
-</form>
+</form> -->
+<tmo-book-search-form (searchBooks)="onSearchBooks($event)"></tmo-book-search-form>
 
-<ng-container *ngIf="searchTerm; else empty">
+<!-- <ng-container *ngIf="searchTerm; else empty">
   <div class="book-grid">
     <div class="book" data-testing="book-item" *ngFor="let b of books">
       <div class="book--title">
@@ -21,7 +22,7 @@
       </div>
       <div class="book--content">
         <div class="book--content--cover">
-          <img src="{{ b.coverUrl }}" />
+          <img src="{{ b.coverUrl }}" [attr.alt]="b.title"/>
         </div>
         <div class="book--content--info">
           <div><strong>Author:</strong> {{ b.authors.join(',') }}</div>
@@ -44,7 +45,11 @@
       </div>
     </div>
   </div>
+</ng-container> -->
+<ng-container *ngIf="books; else empty">
+  <tmo-book-search-results (addedBookToReadingList)="onAddedBookToReadingList($event)" [books]="books"></tmo-book-search-results>
 </ng-container>
+
 <ng-template #empty>
   <div class="empty">
     <p>
