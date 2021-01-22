@@ -5,11 +5,13 @@ import {
   clearSearch,
   getAllBooks,
   ReadingListBook,
-  searchBooks
+  searchBooks,
+  getSearchTerm
 } from '@tmo/books/data-access';
-import { FormBuilder } from '@angular/forms';
+
 import { Book } from '@tmo/shared/models';
 import { Meta } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'tmo-book-search',
@@ -18,7 +20,8 @@ import { Meta } from '@angular/platform-browser';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookSearchComponent implements OnInit {
-  books: ReadingListBook[];
+  books$: Observable<ReadingListBook[]> = this.store.select(getAllBooks);
+  searchTerm$: Observable<string> = this.store.select(getSearchTerm);
 
   constructor(
     private readonly store: Store,
@@ -27,8 +30,7 @@ export class BookSearchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.select(getAllBooks).subscribe(books => {
-      this.books = books;
+    this.books$.subscribe(book => {
       this.cd.markForCheck();
     });
     this.metaTagService.addTags([

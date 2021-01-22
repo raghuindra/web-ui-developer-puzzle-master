@@ -9,6 +9,7 @@ import { ReadingListBook } from '@tmo/books/data-access';
 })
 export class BookSearchResultsComponent implements OnInit {
   @Input() books: ReadingListBook[];
+  @Input() searchTerm: string;
   @Output() addedBookToReadingList = new EventEmitter<ReadingListBook>();
 
   constructor() { }
@@ -18,6 +19,12 @@ export class BookSearchResultsComponent implements OnInit {
 
   onAddedBookToReadingList(book: ReadingListBook) {
     this.addedBookToReadingList.emit(book);
+  }
+
+  formatDate(date: void | string) {
+    return date
+      ? new Intl.DateTimeFormat('en-US').format(new Date(date))
+      : undefined;
   }
 
 }
