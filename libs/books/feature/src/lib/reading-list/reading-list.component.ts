@@ -12,7 +12,7 @@ export class ReadingListComponent {
 
   constructor(private readonly store: Store) {}
 
-  onRemovedFromReadingList(item) {
+  removeFromReadingList(item) {
     this.store.dispatch(removeFromReadingList({ item }));
   }
 }
