@@ -12,8 +12,7 @@ describe('Books Selectors', () => {
         {
           ...initialState,
           error: 'Unknown error',
-          loaded: true,
-          searchTerm: 'Tim Cook'
+          loaded: true
         }
       )
     };
@@ -38,11 +37,5 @@ describe('Books Selectors', () => {
 
       expect(result).toEqual('Unknown error');
     });
-
-    it('getSearchTerm() should return the current search term', () => {
-      const result = BooksSelectors.getSearchTerm(state);
-
-      expect(result).toEqual('Tim Cook');
-    })
   });
 });
