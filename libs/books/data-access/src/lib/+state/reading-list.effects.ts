@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { optimisticUpdate } from '@nrwl/angular';
 import { HttpClient } from '@angular/common/http';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { of } from 'rxjs';
@@ -51,6 +52,28 @@ export class ReadingListEffects implements OnInitEffects {
           )
         )
       )
+    )
+  );
+
+  markAsRead$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReadingListActions.toggleMarkedAsRead),
+      optimisticUpdate({
+        run: ({ item }) => {
+          return this.http
+            .put(`/api/reading-list/${item.bookId}/finished`, item)
+            .pipe(
+              map(() =>
+                ReadingListActions.confirmedMarkAsRead({
+                  item
+                })
+              )
+            );
+        },
+        undoAction: ({ item }) => {
+          return ReadingListActions.failedToggleMarkedAsRead({ item });
+        }
+      })
     )
   );
 

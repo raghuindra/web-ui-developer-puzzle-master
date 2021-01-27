@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { StorageService } from '@tmo/shared/storage';
 import { Book, ReadingListItem } from '@tmo/shared/models';
+import {  StorageService} from '@tmo/shared/storage';
 
 const KEY = '[okreads API] Reading List';
 
@@ -27,5 +27,15 @@ export class ReadingListService {
     this.storage.update(list => {
       return list.filter(x => x.bookId !== id);
     });
+  }
+
+  async updateMarkedAsRead(id: string, item: ReadingListItem): Promise<void> {
+    this.storage.update(list => {
+      const index = list.findIndex(x => x.bookId === id);
+      if (index > -1) {
+        list[index] = item;
+      }
+      return list;
+    })
   }
 }
