@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "nx",
     "nx": "nx",
-    "start": "nx serve okreads",
+    "start": "nx serve okreads && gzipper compress ./dist",
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
@@ -78,6 +78,7 @@
     "codelyzer": "^6.0.0",
     "dotenv": "6.2.0",
     "eslint": "6.8.0",
+    "gzipper": "^4.3.0",
     "jest": "25.2.3",
     "jest-preset-angular": "8.1.2",
     "mocha": "^7.1.2",

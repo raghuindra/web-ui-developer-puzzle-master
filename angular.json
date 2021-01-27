@@ -12,10 +12,10 @@
           "options": {
             "commands": [
               {
-                "command": "nx serve okreads-api"
+                "command": "nx serve okreads-api --prod"
               },
               {
-                "command": "nx serve okreads-browser"
+                "command": "nx serve okreads-browser --prod"
               }
             ]
           }
@@ -76,7 +76,7 @@
               "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true,
               "budgets": [
                 {
